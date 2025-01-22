@@ -1,23 +1,19 @@
 "use client";
 
-import { SetpOne } from "../../components/Setpone";
- 
-const namesInput2 =[
-  {name:"Email", type:"email", search:"Email"},
-  {name:"Phone number", type:"number", search:"Your phone number"},
-  {name:"Password", type:"text", search:"your password"},
-  {name:"Confirm password", type:"text", search:"Confirm password"},
-]
-const namesInput3 =[
-  {name:"Date of birth", type:"date"},
-  {name:"profile", type:"file" ,text:"Browse or drop image"
-  },
-]
+import { SetpOne } from "@/components/Setpone";
+import { SetpTwo } from "@/components/SetpTwo";
+import {SetpThird} from "@/components/SetpThird";
+import { useState } from "react";
+
 
 
 export default function Home() {
-  return ( <>
-  <SetpOne />
-      </>
+  const [step, SetStep] = useState(1);
+  return (<>
+    {step === 1 ? <SetpOne setStep={SetStep} /> : <></>}
+    {step === 2 ? <SetpTwo setStep={SetStep} /> : <></>}
+    {step === 3 ? <SetpThird setStep={SetStep} /> : <></>}
+    {step === 4 ? <SetpThird setStep={SetStep} /> : <></>}
+  </>
   );
 }
