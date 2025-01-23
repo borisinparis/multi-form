@@ -10,15 +10,15 @@ const namesInput3 = [
     },
   ]
 
-export const SetpThird = ({ setStep }) => {
-    const [valueInput, setValueInput] = useState({});
+export const SetpThird = ({ setStep,step }) => {
+    const [thirdValue,setThirdValue] = useState({});
     const [errors, setErrors] = useState({});
 
     const onSubmit = () => {
         setErrors({});
 
         const check = namesInput3.reduce((prev, cur) => {
-            if (!valueInput[cur.name] || valueInput[cur.name].length === 0) {
+            if (!thirdValue[cur.name] || thirdValue[cur.name].length === 0) {
                 setErrors((prevErrors) => ({ ...prevErrors, [cur.name]: cur.errorMessage }))
                 return false;
             }
@@ -33,14 +33,10 @@ export const SetpThird = ({ setStep }) => {
 
         if (check) {
             setStep(4);
-            setValueInput({})
+            setThirdValue({})
         }
 
     };
-
-
-    console.log(valueInput, errors)
-
 
     return (
         <div className="w-[100%] flex items-center justify-center h-[1400px] bg-gray">
@@ -49,12 +45,12 @@ export const SetpThird = ({ setStep }) => {
                 <p className="text-[18px] whitespace-nowrap text-[#8E8E8E]">Please provide all current information accurately.</p>
                 {
                     namesInput3.map((el, index) => (
-                        <Input key={index} index={index} el={el} errors={errors} setValueInput={setValueInput} />
+                        <Input key={index} index={index} step={step} el={el} errors={errors} setThirdValue={setThirdValue} />
                     ))
                 }
 
                 <div className="flex w-full gap-x-2 mt-auto">
-                    <button onClick={onSubmit} type="submit" className="flex flex-1 items-center justify-center w-[100%] h-[44px] gap-x-3 rounded-md bg-[#121316] text-white transition-all duration-300 hover:opacity-80">"Continue 1/3
+                    <button onClick={onSubmit} type="submit" className="flex flex-1 items-center justify-center w-[100%] h-[44px] gap-x-3 rounded-md bg-[#121316] text-white transition-all duration-300 hover:opacity-80">{`${step}/3 last one`}
                     </button>
                 </div>
 

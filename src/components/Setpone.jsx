@@ -4,12 +4,12 @@ import { Input } from "@/components/Input.jsx";
 import { useState } from "react";
 
 const namesInput1 = [
-    { name: "First name", type: "text", search: "Your first name", errorMessage: "eniig oruulna u" },
-    { name: "Last name", type: "text", search: "Your last name", errorMessage: "eniig oruulna u" },
-    { name: "Username", type: "text", search: "Your username", errorMessage: "eniig oruulna u" },
+    { name: "First name", type: "text", search: "Your first name", errorMessage: "Empty enter your first name" },
+    { name: "Last name", type: "text", search: "Your last name", errorMessage: "Empty enter your last name" },
+    { name: "Username", type: "text", search: "Your username", errorMessage: "Empty enter your Username" },
 ]
 
-export const SetpOne = ({ setStep }) => {
+export const SetpOne = ({ setStep, step }) => {
     const [valueInput, setValueInput] = useState({});
     const [errors, setErrors] = useState({});
 
@@ -17,7 +17,7 @@ export const SetpOne = ({ setStep }) => {
         setErrors({});
 
         const check = namesInput1.reduce((prev, cur) => {
-            if (!valueInput[cur.name] || valueInput[cur.name].length === 0) {
+            if (!valueInput[cur.name] || valueInput[cur.name].length === 0 || valueInput[cur.name].length <= 4) {
                 setErrors((prevErrors) => ({ ...prevErrors, [cur.name]: cur.errorMessage }))
                 return false;
             }
@@ -48,7 +48,7 @@ export const SetpOne = ({ setStep }) => {
                 <p className="text-[18px] whitespace-nowrap text-[#8E8E8E]">Please provide all current information accurately.</p>
                 {
                     namesInput1.map((el, index) => (
-                        <Input key={index} index={index} el={el} errors={errors} setValueInput={setValueInput} />
+                        <Input key={index} index={index} step={step} el={el} errors={errors} setValueInput={setValueInput} />
                     ))
                 }
 
