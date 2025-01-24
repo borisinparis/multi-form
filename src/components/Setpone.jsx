@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/Input.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const namesInput1 = [
     { name: "First name", type: "text", search: "Your first name", errorMessage: "Empty enter your first name" },
@@ -10,8 +10,15 @@ const namesInput1 = [
 ]
 
 export const SetpOne = ({ setStep, step }) => {
-    const [valueInput, setValueInput] = useState({});
+    const [valueInput, setValueInput] = useState(() => {
+        const prevValue = JSON.parse(localStorage.getItem("stepOne") || "{}")
+        return prevValue
+    });
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        localStorage.setItem("stepOne", JSON.stringify(valueInput));
+    }, [valueInput])
 
     const onSubmit = () => {
         setErrors({});
@@ -48,7 +55,7 @@ export const SetpOne = ({ setStep, step }) => {
                 <p className="text-[18px] whitespace-nowrap text-[#8E8E8E]">Please provide all current information accurately.</p>
                 {
                     namesInput1.map((el, index) => (
-                        <Input key={index} index={index} step={step} el={el} errors={errors} setValueInput={setValueInput} />
+                        <Input key={index} index={index} step={step} el={el} errors={errors} setValueInput={setValueInput} value={valueInput[el.name]} />
                     ))
                 }
 

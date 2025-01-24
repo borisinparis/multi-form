@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "@/components/Input.jsx";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 
 const namesInput2 = [
     { name: "Email", type: "email", search: "Email" , errorMessage: "Not your Email"  },
@@ -11,11 +11,29 @@ const namesInput2 = [
 
 
 export const SetpTwo = ({setStep , step}) => {
-    const [secondPage, setSecondPage] = useState({});
+    const [secondPage, setSecondPage] = useState(() => {
+
+        const prevValue = JSON.parse(localStorage.getItem("stepTwo") || "{}")
+        return prevValue
+    });
     const [errors, setErrors] = useState({});
+
+        useEffect(() => {
+        localStorage.setItem("stepTwo", JSON.stringify(secondPage));
+        },[secondPage])
+
+    const onSubmitBack =() => {
+        setStep(1)
+
+    }
+
+
 
     const onSubmit = () => {
         setErrors({});
+            console.log();
+            
+            
 
         const check = namesInput2.reduce((prev, cur) => {
             if(cur.name =="Email"){
@@ -70,12 +88,13 @@ export const SetpTwo = ({setStep , step}) => {
                 <p className="text-[18px] whitespace-nowrap text-[#8E8E8E]">Please provide all current information accurately.</p>
                 {
                     namesInput2.map((el, index) => (
-                        <Input key={index} index={index} step={step} el={el} errors={errors} setSecondPage={setSecondPage} />
+                        <Input key={index} index={index} step={step} el={el} errors={errors} setSecondPage={setSecondPage} value={secondPage[el.name]} />
                     ))
                 }
 
                 <div className="flex w-full gap-x-2 mt-auto">
-                    <button onClick={onSubmit} type="submit" className="flex flex-1 items-center justify-center w-[100%] h-[44px] gap-x-3 rounded-md bg-[#121316] text-white transition-all duration-300 hover:opacity-80">"{`${step}/3 continue`}
+                    <button onClick={onSubmitBack} className="flex flex-1 items-center justify-center w-[20px] h-[44px] rounded-md bg-[#121316] text-white transition-all duration-300 hover:opacity-80">"back</button>
+                    <button onClick={onSubmit} type="submit" className="flex flex-1 items-center justify-center w-[70%] h-[44px] gap-x-3 rounded-md bg-[#121316] text-white transition-all duration-300 hover:opacity-80">"{`${step}/3 continue`}
                     </button>
                 </div>
 
