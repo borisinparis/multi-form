@@ -16,20 +16,37 @@ export const SetpThird = ({ setStep,step }) => {
 
     const onSubmit = () => {
         setErrors({});
+        console.log(thirdValue["Date of birth"]);
+        const dateOfCalender = new Date(thirdValue["Date of birth"]);
+        const year = dateOfCalender.getFullYear(); 
+        console.log(year);
+        
 
         const check = namesInput3.reduce((prev, cur) => {
-            if (!thirdValue[cur.name] || thirdValue[cur.name].length === 0) {
+            console.log([cur.name]);
+            if([cur.name] == "Date of birth") {
+                if (!year || year <= 1940 && year>= 2012) {
+                    setErrors((prevErrors) => ({ ...prevErrors, [cur.name]: cur.errorMessage }))
+                    return false; 
+                }
+                
+            }
+            if([cur.name] == "profile") {
+                if(!namesInput3[cur.name]) {
+                    setErrors((prevErrors) => ({ ...prevErrors, [cur.name]: cur.errorMessage }))
+                    return false; 
+                }
+                
+            }
+            
+            if (!year || year <= 1940 && year>= 2012) {
                 setErrors((prevErrors) => ({ ...prevErrors, [cur.name]: cur.errorMessage }))
                 return false;
+                
             }
             if (prev === false) return false;
             return true
         }, true);
-
-        console.log(check)
-
-        console.log("working");
-
 
         if (check) {
             setStep(4);

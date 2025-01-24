@@ -43,8 +43,19 @@ export const Input = ({ el, errors, step, setValueInput, setSecondPage,setThirdV
     if (step === 3) {
 
         const onChange = (event) => {
-            setThirdValue((prev) => ({ ...prev, [el.name]: event.target.value }))   
-            console.log(thirdValue);
+            if(el.name == "Date of birth" ) {
+                setThirdValue({[el.name]: event.target.value})
+                console.log([el.name]);
+                
+            } 
+            if(el.name == "profile") {
+                console.log({[el.name]: event.target.value});
+                
+             setThirdValue((prev) => ({ ...prev, [el.name]: event.target.value }))  
+             
+            }
+            // console.log({[el.name]:event.target.value});
+            
             
         };
 
@@ -54,6 +65,7 @@ export const Input = ({ el, errors, step, setValueInput, setSecondPage,setThirdV
                 <input
                     type={el.type}
                     placeholder={el.search}
+                    accept="image/*"
                     onChange={onChange}
                     className="w-full border py-4 px-2 rounded-xl"
                 />
