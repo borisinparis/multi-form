@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/Input.jsx";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 
 const namesInput3 = [
     { name: "Date of birth", type: "date" },
@@ -11,9 +11,15 @@ const namesInput3 = [
 ]
 
 export const SetpThird = ({ setStep, step }) => {
-    const [thirdValue, setThirdValue] = useState({});
+    const [thirdValue, setThirdValue] = useState(() =>{
+        const prevValue = JSON.parse(localStorage.getItem("stepThird") || "{}")
+        return prevValue
+    });
     const [errors, setErrors] = useState({});
 
+    useEffect(() => {
+        localStorage.setItem("stepThird", JSON.stringify(thirdValue));
+    }, [thirdValue])
 
     const onSubmitBack = () => {
         setStep(2)
@@ -22,29 +28,33 @@ export const SetpThird = ({ setStep, step }) => {
 
     const onSubmit = () => {
         setErrors({});
-        console.log(thirdValue["Date of birth"]);
         const dateOfCalender = new Date(thirdValue["Date of birth"]);
         const year = dateOfCalender.getFullYear();
-        console.log(year);
 
         console.log(thirdValue["profile"]);
 
 
 
         const check = namesInput3.reduce((prev, cur) => {
-            console.log(cur.name);
-            if (cur.name == "Date of birth") {
-                if (!year || (year >= 1940 && year <= 2012)) {
-                    setErrors((prevErrors) => ({ ...prevErrors, [cur.name]: cur.errorMessage }))
+            console.log((cur.name));
+            console.log(namesInput3[0].name);
+            console.log(year);
+            
+            
+            if (cur.name === namesInput3[0].name && ( year<1940 || year>2024)) {
+                console.log(year);
+                
+                    setErrors((prevErrors) => 
+                        ({ 
+                           ...prevErrors, 
+                        [cur.name]: cur.errorMessage }))
                     return false;
-                }
 
             }
-            if (cur.name == "profile") {
-                if (!thirdValue[cur.name]) {
+            if (cur.name == "profile" && thirdValue[cur.name] ) {
+                
                     setErrors((prevErrors) => ({ ...prevErrors, [cur.name]: cur.errorMessage }))
                     return false;
-                }
 
             }
 
@@ -61,10 +71,15 @@ export const SetpThird = ({ setStep, step }) => {
     };
 
     return (
-        <div className="w-[100%] flex items-center justify-center h-[1400px] bg-gray">
-            <div className="w-[480px] min-h-[655px] p-8 rounded-xl bg-black">
-                <h1 className="text-[26px]  text-white">Join us! 😎</h1>
+        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+            <div className="opacity: 1; transform: none;">
+        <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white rounded-lg">
+                <div className="space-y-2 mb-7">
+                    <img src="Main 1.png"></img>
+                <h1 className="text-[26px] text-foreground font-semibold">Join us! 😎</h1>
                 <p className="text-[18px] whitespace-nowrap text-[#8E8E8E]">Please provide all current information accurately.</p>
+                </div>
+                <form className="flex flex-col flex-grow gap-y-3">
                 {
                     namesInput3.map((el, index) => (
                         <Input
@@ -76,6 +91,7 @@ export const SetpThird = ({ setStep, step }) => {
                             setThirdValue={setThirdValue} />
                     ))
                 }
+                </form>
 
                 <div className="flex w-full gap-x-2 mt-auto">
                     <button onClick={onSubmitBack} className="flex flex-1 items-center justify-center w-[20px] h-[44px] rounded-md bg-[#121316] text-white transition-all duration-300 hover:opacity-80">"back</button>
@@ -87,6 +103,7 @@ export const SetpThird = ({ setStep, step }) => {
 
 
             </div>
+        </div>
         </div>
 
     )

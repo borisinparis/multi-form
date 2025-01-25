@@ -1,20 +1,17 @@
-export const Completed = ({ setStep }) => {
+"use client";
+export const Completed = () => {
 
-    const onSubmitBack = () => {
-        setStep(3)
+    return (<div className="flex min-h-screen items-center justify-center bg-gray-100 __className_d04102">
+    <div className="opacity: 1; transform: none;">
 
-    }
-    return (<div className="w-[100%] flex items-center justify-center h-[1400px] bg-gray">
-
-        <div className="w-[480px] min-h-[655px] p-8 rounded-xl bg-black">
-            <h1 className="text-[26px]  text-white">Join us! 😎</h1>
-            <p className="text-[18px] whitespace-nowrap text-[#8E8E8E]">Please provide all current information accurately.</p>
-            <button onClick={onSubmitBack} className="flex flex-1 items-center justify-center w-[60px] h-[44px] rounded-md bg-[#121316] text-white transition-all duration-300 hover:opacity-80">"back</button>
+        <div className="space-y-2 bg-white rounded-lg w-[480px] p-8">
+            <img src="Main 1.png"></img>
+            <h1 className="text-[26px] text-[#202124] font-semibold">You're All Set! 🔥</h1>
+            <p className="text-lg text-[#8E8E8E] font-normal">We've received your submission. Thank you!</p>
         </div>
-
-
 
     </div>
 
+</div>
     )
 }

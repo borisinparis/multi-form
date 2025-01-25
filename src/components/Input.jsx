@@ -10,18 +10,19 @@ export const Input = ({ el, errors, value, step, setValueInput, setSecondPage, s
             setValueInput((prev) => ({ ...prev, [el.name]: event.target.value }))
         };
 
-        return (
-            <div className="flex flex-col mt-10" >
-                <label className="text-sm text-white font-semibold">{el?.name}</label>
+        return ( <fieldset className="space-y-2">
+                <label className="block text-sm font-semibold leading-4 text-[#334155]">{el?.name}
+                    <span className="text-red-500">*</span>
+                </label>
                 <input
                     type={el.type}
                     placeholder={el.search}
                     onChange={stepOneOnChange}
                     value={value}
-                    className="w-full border py-4 px-2 rounded-xl"
+                    className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
                 />
                 <div className="text-red-700"> {errors[el.name]} </div>
-            </div>
+                </fieldset>
         )
     }
 
@@ -31,18 +32,20 @@ export const Input = ({ el, errors, value, step, setValueInput, setSecondPage, s
             setSecondPage((prev) => ({ ...prev, [el.name]: event.target.value }))
         };
 
-        return (
-            <div className="flex flex-col mt-10" >
-                <label className="text-sm text-white font-semibold">{el?.name}</label>
+        return ( <fieldset className="space-y-2">
+
+                <label className="block text-sm font-semibold leading-4 text-[#334155]">{el?.name}
+                    <span className="text-red-500">*</span>
+                </label>
                 <input
                     type={el.type}
                     placeholder={el.search}
                     value={value}
                     onChange={stepTwoonChange}
-                    className="w-full border py-4 px-2 rounded-xl"
+                    className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
                 />
                 <div className="text-red-700"> {errors[el.name]} </div>
-            </div>
+                </fieldset>
         )
     }
 
@@ -76,20 +79,23 @@ export const Input = ({ el, errors, value, step, setValueInput, setSecondPage, s
 
 
     return (
-        <div className="flex flex-col mt-10" >
-            <label className="text-sm text-white font-semibold">{el?.name}</label>
+       <fieldset className="space-y-2">
+            <label className="block text-sm font-semibold leading-4 text-[#334155]">{el?.name}
+                <span className="text-red-700">*</span>
+            </label>
             <input
                 type={el.type}
                 placeholder={el.search}
                 accept="image/*"
                 onChange={onChange}
-                className="w-full border py-4 px-2 rounded-xl"
+                className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
             />
             {el?.name === "profile" && (
                 <img src={imagePreview} alt="Profile Preview" className="w-[400px] h-[300px]" />
             )}
             <div className="text-red-700"> {errors[el.name]} </div>
-        </div>
+            </fieldset>
+
     )
 
 }
