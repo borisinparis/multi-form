@@ -11,9 +11,10 @@ const namesInput1 = [
 
 export const SetpOne = ({ setStep, step }) => {
     const [valueInput, setValueInput] = useState(() => {
+        if(typeof window !== "undefined") {
         const prevValue = JSON.parse(localStorage.getItem("stepOne") || "{}")
-        return prevValue
-    });
+        return prevValue || {}
+    }});
     const [errors, setErrors] = useState({});
 
     useEffect(() => {

@@ -12,10 +12,11 @@ const namesInput2 = [
 
 export const SetpTwo = ({setStep , step}) => {
     const [secondPage, setSecondPage] = useState(() => {
+        if(typeof window !== "undefined") {
 
         const prevValue = JSON.parse(localStorage.getItem("stepTwo") || "{}")
-        return prevValue
-    });
+        return prevValue || {}
+    }});
     const [errors, setErrors] = useState({});
 
         useEffect(() => {

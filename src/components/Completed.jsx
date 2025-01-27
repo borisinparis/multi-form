@@ -1,6 +1,5 @@
 "use client";
 export const Completed = () => {
-
     return (<div className="flex min-h-screen items-center justify-center bg-gray-100 __className_d04102">
     <div className="opacity: 1; transform: none;">
 

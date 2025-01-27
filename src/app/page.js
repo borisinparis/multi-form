@@ -11,8 +11,9 @@ import { useEffect,useState } from "react";
 
 export default function Home() {
   const [step, SetStep] = useState(() => {
+    if(typeof window !== "undefined") {
 return  Number(localStorage.getItem("step") || 1)
-  });
+  }});
   console.log(step);
 
   useEffect(() => {

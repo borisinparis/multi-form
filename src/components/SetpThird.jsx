@@ -12,9 +12,12 @@ const namesInput3 = [
 
 export const SetpThird = ({ setStep, step }) => {
     const [thirdValue, setThirdValue] = useState(() =>{
+        if(typeof window !== "undefined") {
         const prevValue = JSON.parse(localStorage.getItem("stepThird") || "{}")
-        return prevValue
-    });
+        return prevValue || {}
+    }
+    return {}
+});
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
